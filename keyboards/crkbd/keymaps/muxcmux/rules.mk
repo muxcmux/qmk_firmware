@@ -6,4 +6,5 @@ LTO_ENABLE      = yes
 MAGIC_ENABLE    = yes
 CONSOLE_ENABLE  = no
 NKRO_ENABLE     = yes
+COMBO_ENABLE    = yes
 
