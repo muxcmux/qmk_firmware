@@ -19,6 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
+// Macros
+enum custom_keycodes {
+    M_DSWITCH = SAFE_RANGE,
+    M_SCRSH,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -39,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______,    KC_6,    KC_7,    KC_8,    KC_9,  KC_TAB,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LALT, _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -59,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_CAPS, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, XXXXXXX, XXXXXXX, M_DSWITCH,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, RGB_HUI, RGB_SAI, XXXXXXX, XXXXXXX, RGB_VAI,                      KC_MRWD, KC_VOLD, KC_VOLU, KC_MFFD, XXXXXXX, XXXXXXX,
+      _______, RGB_HUI, RGB_SAI, XXXXXXX, XXXXXXX, RGB_VAI,                      KC_MRWD, KC_VOLD, KC_VOLU, KC_MFFD, M_SCRSH, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_HUD, RGB_SAD,RGB_RMOD, RGB_MOD, RGB_VAD,                      KC_MPLY, KC_BRID, KC_BRIU, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -70,10 +76,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+// Key combos
 const uint16_t PROGMEM jk_escape_combo[] = { KC_J, KC_K, COMBO_END };
 combo_t key_combos[COMBO_COUNT] = {
   COMBO(jk_escape_combo, KC_ESC)
 };
+
+// always call this function from process_record_user regardless of OLED_ENABLE
+// to make sure macros are handled correctly
+bool handle_macros(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch(keycode) {
+            case M_DSWITCH:
+                SEND_STRING(SS_LCTL(SS_LSFT(SS_LCMD("l"))));
+                return false; break;
+            case M_SCRSH:
+                SEND_STRING(SS_LCMD(SS_LSFT("4")));
+                return false; break;
+        }
+    }
+    return true;
+}
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -176,6 +199,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
   }
-  return true;
+  return handle_macros(keycode, record);
 }
+
+#else
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  return handle_macros(keycode, record);
+}
+
 #endif // OLED_ENABLE
