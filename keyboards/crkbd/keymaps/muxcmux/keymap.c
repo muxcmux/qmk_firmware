@@ -19,15 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
-// Macros
-enum custom_keycodes {
-    M_EMOJI = SAFE_RANGE,
-    M_LUNCH, M_SCRSH,
-    M_MSMLE, M_MMDLE, M_MLGLE,
-    M_MSMRI, M_MMDRI, M_MLGRI,
-    M_MFULL, M_MCNTR, M_MSMCE,
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -44,13 +35,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, XXXXXXX, M_EMOJI, XXXXXXX,
+      _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, XXXXXXX,C(G(KC_SPC)),XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MRWD, KC_VOLD, KC_VOLU, KC_MFFD, M_SCRSH, XXXXXXX,
+      _______,G(KC_SPC),LCA(KC_S),LCA(KC_D),LCA(KC_F),LCA(KC_G),                 KC_MRWD, KC_VOLD, KC_VOLU, KC_MFFD,LSG(KC_4),XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MPLY, KC_BRID, KC_BRIU, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX,G(KC_GRV),LCA(KC_X),LCA(KC_C),LCA(KC_V),LCA(KC_B),                 KC_MPLY, KC_BRID, KC_BRIU, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, _______,    _______, _______, _______
+                                      LCA(KC_ENT), _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -58,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, RGB_TOG, RGB_VAD, RGB_VAI, RGB_MOD, XXXXXXX,                      KC_PLUS, KC_LBRC, KC_RBRC, KC_MINS, XXXXXXX, KC_CAPS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_EQL, KC_LCBR, KC_RCBR, KC_UNDS, KC_PIPE, KC_BSLS,
+      _______,XXXXXXX,MEH(KC_S),MEH(KC_D),MEH(KC_F),MEH(KC_G),                    KC_EQL, KC_LCBR, KC_RCBR, KC_UNDS, KC_PIPE, KC_BSLS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_GRV, KC_QUOT, KC_DQUO, KC_AMPR, KC_TILD, _______,
+      _______,XXXXXXX,MEH(KC_X),MEH(KC_C),MEH(KC_V),MEH(KC_B),                    KC_GRV, KC_QUOT, KC_DQUO, KC_AMPR, KC_TILD, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -84,49 +75,6 @@ const uint16_t PROGMEM jk_escape_combo[] = { KC_J, KC_K, COMBO_END };
 combo_t key_combos[COMBO_COUNT] = {
   COMBO(jk_escape_combo, KC_ESC)
 };
-
-// always call this function from process_record_user regardless of OLED_ENABLE
-// to make sure macros are handled correctly
-bool handle_macros(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch(keycode) {
-            case M_EMOJI:
-                SEND_STRING(SS_RCTL(SS_LGUI(" ")));
-                return false; break;
-            case M_SCRSH:
-                SEND_STRING(SS_LCMD(SS_LSFT("4")));
-                return false; break;
-            case M_LUNCH:
-                SEND_STRING(SS_LCMD(" "));
-                return false; break;
-            case M_MSMLE:
-                SEND_STRING(SS_RCTL(SS_LALT("h")));
-                return false; break;
-            case M_MMDLE:
-                SEND_STRING(SS_RCTL(SS_LALT("j")));
-                return false; break;
-            case M_MLGLE:
-                SEND_STRING(SS_RCTL(SS_LALT("s")));
-                return false; break;
-            case M_MSMRI:
-                SEND_STRING(SS_RCTL(SS_LALT("l")));
-                return false; break;
-            case M_MMDRI:
-                SEND_STRING(SS_RCTL(SS_LALT("k")));
-                return false; break;
-            case M_MLGRI:
-                SEND_STRING(SS_RCTL(SS_LALT("g")));
-                return false; break;
-            case M_MCNTR:
-                SEND_STRING(SS_RCTL(SS_LALT("c")));
-                return false; break;
-            case M_MSMCE:
-                SEND_STRING(SS_RCTL(SS_LALT("d")));
-                return false; break;
-        }
-    }
-    return true;
-}
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -229,13 +177,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
   }
-  return handle_macros(keycode, record);
-}
-
-#else
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return handle_macros(keycode, record);
+  return true;
 }
 
 #endif // OLED_ENABLE
