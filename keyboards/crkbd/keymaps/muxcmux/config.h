@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QUICK_TAP_TERM 180
 #define TAPPING_TERM 180
 #define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define COMBO_COUNT 1
 

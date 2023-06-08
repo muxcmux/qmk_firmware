@@ -45,9 +45,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, XXXXXXX, S_EMOJI, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, S_SPOTL,   LCA_S,   LCA_D,   LCA_F,   LCA_G,                      KC_MRWD, KC_VOLD, KC_VOLU, KC_MFFD, S_SCRSH,XXXXXXX,
+        MO(4), S_SPOTL,   LCA_S,   LCA_D,   LCA_F,   LCA_G,                      KC_MRWD, KC_VOLD, KC_VOLU, KC_MFFD, S_SCRSH, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, S_SWWIN,   LCA_X,   LCA_C,   LCA_V,   LCA_B,                      KC_MPLY, KC_BRID, KC_BRIU, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, S_SWWIN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MPLY, KC_BRID, KC_BRIU, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                       LCA(KC_ENT), _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -55,11 +55,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      MEH_ESC, RGB_TOG, RGB_VAD, RGB_VAI, RGB_MOD, XXXXXXX,                      KC_PLUS, KC_LBRC, KC_RBRC, KC_MINS, XXXXXXX, CW_TOGG,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_PLUS, KC_LBRC, KC_RBRC, KC_MINS, KC_BSLS, CW_TOGG,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX,   MEH_S,   MEH_D,   MEH_F,   MEH_G,                       KC_EQL, KC_LCBR, KC_RCBR, KC_UNDS, KC_PIPE, KC_BSLS,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_EQL, KC_LCBR, KC_RCBR, KC_UNDS, KC_PIPE,   MO(4),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      MEH_BSP, XXXXXXX,   MEH_X,   MEH_C,   MEH_V,   MEH_B,                       KC_GRV, KC_QUOT, KC_DQUO, KC_AMPR, KC_TILD, _______,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_GRV, KC_QUOT, KC_DQUO, KC_AMPR, KC_TILD, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -75,7 +75,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LALT, _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
-  )
+  ),
+
+  [4] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, RGB_TOG, RGB_VAD, RGB_VAI, RGB_MOD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, XXXXXXX, XXXXXXX,   MEH_D,   MEH_F,   MEH_G,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          _______, _______, _______,    _______, _______, _______
+  )                                    //`--------------------------'  `--------------------------'
 };
 
 // Key combos
