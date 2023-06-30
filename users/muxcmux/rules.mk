@@ -1,5 +1,7 @@
 INTROSPECTION_KEYMAP_C = combos.c
 
+SRC += muxcmux.c
+
 MOUSEKEY_ENABLE  = no
 LTO_ENABLE       = yes
 MAGIC_ENABLE     = yes

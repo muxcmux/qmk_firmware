@@ -115,7 +115,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
   }
-  return true;
+  return handle_macros(keycode, record);
+}
+
+#else
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  return handle_macros(keycode, record);
 }
 
 #endif // OLED_ENABLE

@@ -1,5 +1,23 @@
 #include QMK_KEYBOARD_H
 
+// include ignored secrets definition
+#if __has_include("secrets.h")
+# include "secrets.h"
+#endif
+
+// define the macro keycodes
+enum macro_keycodes {
+    M_LOGIN = SAFE_RANGE,
+};
+
+// define dummy secrets values so we don't break compilation
+// when the secrets header is missing
+#ifndef SECRET_LOGIN
+# define SECRET_LOGIN "lol"
+#endif
+
+bool handle_macros(uint16_t keycode, keyrecord_t *record);
+
 // Define some short aliases for modifier keys
 #define GUI_SPC LGUI_T(KC_SPC)
 #define CTL_Z LCTL_T(KC_Z)
@@ -28,6 +46,8 @@
 #define MEH_BSP MEH(KC_BSPC)
 #define ALT_BSP LALT(KC_BSPC)
 
+// The split layout
+
               //,-----------------------------------------------------.                    ,-----------------------------------------------------.
 #define L0R3       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  CW_TOGG
               //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -39,7 +59,7 @@
                                                   //`--------------------------'  `--------------------------'
 
               //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-#define L1R3      _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, XXXXXXX, S_EMOJI, XXXXXXX
+#define L1R3      M_LOGIN, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, XXXXXXX, S_EMOJI, XXXXXXX
               //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 #define L1R2      XXXXXXX, S_SPOTL,   LCA_S,   LCA_D,   LCA_F,   LCA_G,                      KC_MRWD, KC_VOLD, KC_VOLU, KC_MFFD, S_SCRSH, XXXXXXX
               //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|

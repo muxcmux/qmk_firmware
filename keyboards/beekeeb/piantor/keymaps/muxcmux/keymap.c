@@ -9,3 +9,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [3] = layout(L3R3, L3R2, L3R1, L3R0),
   [4] = layout(L4R3, L4R2, L4R1, L4R0)
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  return handle_macros(keycode, record);
+}
