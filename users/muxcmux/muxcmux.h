@@ -63,7 +63,7 @@ bool handle_macros(uint16_t keycode, keyrecord_t *record);
               //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 #define L1R2      XXXXXXX, S_SPOTL,   LCA_S,   LCA_D,   LCA_F,   LCA_G,                      KC_MRWD, KC_VOLD, KC_VOLU, KC_MFFD, S_SCRSH, XXXXXXX
               //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-#define L1R1      XXXXXXX, S_SWWIN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define L1R1      S_SWWIN, KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX, KC_RCTL, XXXXXXX
               //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
 #define L1R0                                          _______, _______, _______,    _______, _______, _______
                                                   //`--------------------------'  `--------------------------'
